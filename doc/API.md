@@ -27,7 +27,7 @@ GET /sell/buyer/product/list
                     "id": "123456",
                     "name": "皮蛋粥",
                     "price": 1.2,
-                    "description": "好吃的皮蛋粥",
+                    "desc": "好吃的皮蛋粥",
                     "icon": "http://xxx.com",
                 }
             ]
@@ -40,7 +40,7 @@ GET /sell/buyer/product/list
                     "id": "123457",
                     "name": "慕斯蛋糕",
                     "price": 10.9,
-                    "description": "美味爽口",
+                    "desc": "美味爽口",
                     "icon": "http://xxx.com",
                 }
             ]

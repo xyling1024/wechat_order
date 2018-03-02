@@ -8,6 +8,5 @@ public class WechatOrderApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WechatOrderApplication.class, args);
-
 	}
 }
