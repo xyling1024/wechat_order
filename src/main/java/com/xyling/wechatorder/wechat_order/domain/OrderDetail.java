@@ -1,5 +1,6 @@
 package com.xyling.wechatorder.wechat_order.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xyling.wechatorder.wechat_order.enums.OrderStatusEnum;
 import com.xyling.wechatorder.wechat_order.enums.PayStatusEnum;
 import lombok.Data;
@@ -36,9 +37,16 @@ public class OrderDetail {
 
     private String productIcon;
 
+    @JsonIgnore
     private Date createTime;
 
+    @JsonIgnore
     private Date updateTime;
+
+    public OrderDetail(String productId, Integer productQuantity) {
+        this.productId = productId;
+        this.productQuantity = productQuantity;
+    }
 
     public OrderDetail(String detailId, String orderId, String productId, String productName, BigDecimal productPrice, Integer productQuantity, String productIcon) {
         this.detailId = detailId;

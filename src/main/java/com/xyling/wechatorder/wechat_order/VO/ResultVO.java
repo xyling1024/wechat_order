@@ -16,7 +16,7 @@ public class ResultVO<T> {
 
     private Integer code;
 
-    private String msg;
+    private String msg = "";    // 初始化, 这样在转json时即使没有值也会被转成"", 而不会是null
 
     private T data;
 

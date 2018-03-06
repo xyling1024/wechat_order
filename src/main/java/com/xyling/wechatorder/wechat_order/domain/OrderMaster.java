@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by: xyling
@@ -41,6 +42,9 @@ public class OrderMaster {
     private Date createTime;
 
     private Date updateTime;
+
+//    @javax.persistence.Transient
+//    private List<OrderDetail> orderDetailList;
 
     public OrderMaster(String orderId, String buyerName, String buyerPhone, String buyerAddress, String buyerOpenid, BigDecimal orderAmount) {
         this.orderId = orderId;

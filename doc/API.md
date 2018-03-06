@@ -113,8 +113,7 @@ size: 10
       "orderStatus": 0,
       "payStatus": 0,
       "createTime": 1490171219,
-      "updateTime": 1490171219,
-      "orderDetailList": null
+      "updateTime": 1490171219
     },
     {
       "orderId": "161873371171128076",
@@ -126,8 +125,7 @@ size: 10
       "orderStatus": 0,
       "payStatus": 0,
       "createTime": 1490171219,
-      "updateTime": 1490171219,
-      "orderDetailList": null
+      "updateTime": 1490171219
     }]
 }
 ```
@@ -196,8 +194,7 @@ orderId: 161899085773669363
 ```
 {
     "code": 0,
-    "msg": "成功",
-    "data": null
+    "msg": "成功"
 }
 ```
 

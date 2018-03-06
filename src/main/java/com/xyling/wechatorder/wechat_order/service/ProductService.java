@@ -1,5 +1,6 @@
 package com.xyling.wechatorder.wechat_order.service;
 
+import com.xyling.wechatorder.wechat_order.DTO.CartDTO;
 import com.xyling.wechatorder.wechat_order.domain.ProductCategory;
 import com.xyling.wechatorder.wechat_order.domain.ProductInfo;
 import com.xyling.wechatorder.wechat_order.query.ProductQuery;
@@ -64,6 +65,8 @@ public interface ProductService {
     ProductInfo save(ProductInfo productInfo);
 
     // 加库存
+    void increaseStock(List<CartDTO> cartDTOList);
 
     // 减库存
+    void decreaseStock(List<CartDTO> cartDTOList);
 }

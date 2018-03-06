@@ -1,7 +1,10 @@
 package com.xyling.wechatorder.wechat_order.service.impl;
 
+import com.xyling.wechatorder.wechat_order.DTO.CartDTO;
 import com.xyling.wechatorder.wechat_order.domain.ProductInfo;
 import com.xyling.wechatorder.wechat_order.enums.ProductStatusEnum;
+import com.xyling.wechatorder.wechat_order.enums.ResultEnum;
+import com.xyling.wechatorder.wechat_order.exception.SellException;
 import com.xyling.wechatorder.wechat_order.query.ProductQuery;
 import com.xyling.wechatorder.wechat_order.repository.ProductInfoRepository;
 import com.xyling.wechatorder.wechat_order.service.ProductService;
@@ -11,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -24,6 +28,7 @@ import java.util.List;
  * 2018-03-01 14:07
  */
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
     @Autowired
@@ -101,5 +106,33 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductInfo save(ProductInfo productInfo) {
         return repository.save(productInfo);
+    }
+
+    @Override
+    public void increaseStock(List<CartDTO> cartDTOList) {
+        for (CartDTO cartDTO : cartDTOList) {
+            ProductInfo productInfo = repository.findOne(cartDTO.getProductId());
+            if ( productInfo == null ) {
+                throw new SellException(ResultEnum.PRODUCT_NO_EXIST);
+            }
+            productInfo.setProductStock(productInfo.getProductStock() + cartDTO.getProductQuantity());
+            repository.save(productInfo);
+        }
+    }
+
+    @Override
+    public void decreaseStock(List<CartDTO> cartDTOList) {
+        for (CartDTO cartDTO : cartDTOList) {
+            ProductInfo productInfo = repository.findOne(cartDTO.getProductId());
+            if ( productInfo == null ) {
+                throw new SellException(ResultEnum.PRODUCT_NO_EXIST);
+            }
+            Integer stock = productInfo.getProductStock() - cartDTO.getProductQuantity();
+            if ( stock < 0 ) {
+                throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
+            }
+            productInfo.setProductStock(stock);
+            repository.save(productInfo);
+        }
     }
 }
