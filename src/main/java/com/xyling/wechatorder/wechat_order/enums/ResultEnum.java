@@ -34,6 +34,9 @@ public enum ResultEnum {
 
     ORDER_OWNER_ERROR(18, "该订单不属于当前用户"),
 
+    WECHAT_MP_ERROR(19, "微信公众号错误"),
+
+    ENCODED_ERROR(20, "编码错误"),
 
     ;
 
