@@ -1,5 +1,6 @@
 package com.xyling.wechatorder.wechat_order.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 /**
@@ -8,7 +9,8 @@ import lombok.Getter;
  * 订单状态枚举类
  */
 @Getter
-public enum OrderStatusEnum {
+@AllArgsConstructor
+public enum OrderStatusEnum implements StatusEnum<Integer> {
     NEW(0, "新订单"),
     FINISHED(1, "完结"),
     CANCEL(2, "已取消"),
@@ -17,9 +19,4 @@ public enum OrderStatusEnum {
     private Integer status;
 
     private String message;
-
-    OrderStatusEnum(Integer status, String message) {
-        this.status = status;
-        this.message = message;
-    }
 }

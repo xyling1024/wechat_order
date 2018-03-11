@@ -125,6 +125,19 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public Page<OrderDTO> findList(Pageable pageable) {
+        // 查询orderMasterList
+        Page<OrderMaster> orderMasterPage = orderMasterRepository.findAll(pageable);
+        // 转化为orderDTOList
+        Page<OrderDTO> orderDTOPage = new PageImpl<OrderDTO>(
+                OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent()),
+                pageable,
+                orderMasterPage.getTotalElements()
+        );
+        return orderDTOPage;
+    }
+
+    @Override
     public OrderDTO cancel(OrderDTO orderDTO) {
         // 判断订单状态
         if( !orderDTO.getOrderStatus().equals(OrderStatusEnum.NEW.getStatus()) ) {
@@ -198,18 +211,5 @@ public class OrderServiceImpl implements OrderService {
             throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
         return orderDTO;
-    }
-
-    @Override
-    public Page<OrderDTO> findList(Pageable pageable) {
-        // 查询orderMasterList
-        Page<OrderMaster> orderMasterPage = orderMasterRepository.findAll(pageable);
-        // 转化为orderDTOList
-        Page<OrderDTO> orderDTOPage = new PageImpl<OrderDTO>(
-                OrderMaster2OrderDTOConverter.convert(orderMasterPage.getContent()),
-                pageable,
-                orderMasterPage.getTotalElements()
-        );
-        return orderDTOPage;
     }
 }

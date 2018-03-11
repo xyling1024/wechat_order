@@ -59,6 +59,12 @@ public class OrderServiceImplTest {
     }
 
     @Test
+    public void findList() throws Exception {
+        Page<OrderDTO> orderDTOPage = orderService.findList(new PageRequest(0, 10));
+        Assert.assertTrue("订单列表查询", orderDTOPage.getContent().size() > 0);
+    }
+
+    @Test
     public void cancel() throws Exception {
         OrderDTO orderDTO = orderService.findOne(ORDER_ID);
         orderDTO = orderService.cancel(orderDTO);
@@ -77,12 +83,6 @@ public class OrderServiceImplTest {
         OrderDTO orderDTO = orderService.findOne(ORDER_ID);
         orderDTO = orderService.pay(orderDTO);
         Assert.assertEquals(orderDTO.getPayStatus(), PayStatusEnum.SUCCESS.getStatus());
-    }
-
-    @Test
-    public void findList() throws Exception {
-        Page<OrderDTO> orderDTOPage = orderService.findList(new PageRequest(0, 10));
-        Assert.assertNotEquals(0, orderDTOPage.getContent());
     }
 
 }

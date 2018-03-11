@@ -1,8 +1,12 @@
 package com.xyling.wechatorder.wechat_order.DTO;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.xyling.wechatorder.wechat_order.domain.OrderDetail;
+import com.xyling.wechatorder.wechat_order.enums.OrderStatusEnum;
+import com.xyling.wechatorder.wechat_order.enums.PayStatusEnum;
+import com.xyling.wechatorder.wechat_order.utils.EnumUtils;
 import com.xyling.wechatorder.wechat_order.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -49,4 +53,13 @@ public class OrderDTO {
     private List<OrderDetail> orderDetailList = new ArrayList<>();
             // 初始化, 这样在转json时即使没有值也会被转成"[]", 而不会是null
 
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum() {
+        return EnumUtils.getEnumMsgByStatus(orderStatus, OrderStatusEnum.class);
+    }
+
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum() {
+        return EnumUtils.getEnumMsgByStatus(payStatus, PayStatusEnum.class);
+    }
 }

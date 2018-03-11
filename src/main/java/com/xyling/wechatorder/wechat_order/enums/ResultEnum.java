@@ -38,6 +38,10 @@ public enum ResultEnum {
 
     ENCODED_ERROR(20, "编码错误"),
 
+    CANCEL_ORDER_SUCCESS(21, "取消订单成功"),
+
+    FINISH_ORDER_SUCCESS(22, "完结订单成功"),
+
     ;
 
     private Integer code;
