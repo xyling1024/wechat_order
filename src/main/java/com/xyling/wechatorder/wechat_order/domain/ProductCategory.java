@@ -28,10 +28,10 @@ public class ProductCategory {
     private String categoryName;
 
     private Integer categoryType;
-//
-//    private Date createTime;
-//
-//    private Date updateTime;
+
+    private Date createTime;
+
+    private Date updateTime;
 
     public ProductCategory(String categoryName, Integer categoryType) {
         this.categoryName = categoryName;

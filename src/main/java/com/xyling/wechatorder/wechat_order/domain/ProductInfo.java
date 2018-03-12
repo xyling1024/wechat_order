@@ -1,5 +1,6 @@
 package com.xyling.wechatorder.wechat_order.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xyling.wechatorder.wechat_order.enums.ProductStatusEnum;
 import com.xyling.wechatorder.wechat_order.utils.EnumUtils;
 import lombok.Data;
@@ -53,7 +54,9 @@ public class ProductInfo {
         this.categoryType = categoryType;
     }
 
+    @JsonIgnore
     public ProductStatusEnum getProductStatusEnum() {
         return EnumUtils.getEnumMsgByStatus(productStatus, ProductStatusEnum.class);
     }
+
 }

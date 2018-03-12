@@ -75,4 +75,7 @@ public interface ProductService {
 
     // 下架
     ProductInfo offSale(String productId);
+
+    // 查询某个类目下的所有商品
+    List<ProductInfo> findByCategorytype(Integer categoryType);
 }

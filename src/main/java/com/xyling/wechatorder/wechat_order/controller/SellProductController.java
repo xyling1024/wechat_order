@@ -1,21 +1,32 @@
 package com.xyling.wechatorder.wechat_order.controller;
 
 import com.xyling.wechatorder.wechat_order.DTO.OrderDTO;
+import com.xyling.wechatorder.wechat_order.VO.ProductInfoVO;
+import com.xyling.wechatorder.wechat_order.domain.ProductCategory;
 import com.xyling.wechatorder.wechat_order.domain.ProductInfo;
 import com.xyling.wechatorder.wechat_order.enums.ResultEnum;
 import com.xyling.wechatorder.wechat_order.exception.SellException;
+import com.xyling.wechatorder.wechat_order.form.ProductForm;
+import com.xyling.wechatorder.wechat_order.service.CategoryService;
 import com.xyling.wechatorder.wechat_order.service.OrderService;
 import com.xyling.wechatorder.wechat_order.service.ProductService;
+import com.xyling.wechatorder.wechat_order.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -30,8 +41,11 @@ public class SellProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     /**
-     * 查询订单列表
+     * 查询商品列表
      * @param page
      * @param size
      * @param map
@@ -50,19 +64,6 @@ public class SellProductController {
         map.put("size", size);
         return new ModelAndView("product/list", map);
     }
-
-    /**
-     * 修改
-     * @param productId
-     * @param map
-     * @return
-     */
-   /* @GetMapping("/index")
-    public ModelAndView update(@RequestParam("productId") String productId,
-                               Map<String, Object> map) {
-//        productService.
-
-    }*/
 
     /**
      * 上架
@@ -108,72 +109,55 @@ public class SellProductController {
         return new ModelAndView("commons/success", map);
     }
 
-  /*  *//**
-     * 取消订单
-     * @param orderId
+    /**
+     * 跳转到商品详情页
+     * @param productId
      * @param map
      * @return
-     *//*
-    @GetMapping("/cancel")
-    public ModelAndView cancel(@RequestParam("orderId") String orderId,
+     */
+    @GetMapping("/index")
+    public ModelAndView update(@RequestParam(value = "productId", required = false) String productId,
                                Map<String, Object> map) {
-        try {
-            OrderDTO one = orderService.findOne(orderId);
-            orderService.cancel(one);
-        } catch (SellException e) {
-            log.error("[卖家端取消订单] {}", e.getMessage());
-            map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/order/list");
-            return new ModelAndView("commons/error", map);
+        if ( productId != null ) {
+            ProductInfo productInfo = productService.findOne(productId);
+            if ( productInfo == null ) {
+                log.error("[卖家端查询商品详情] {}", ResultEnum.PRODUCT_NO_EXIST);
+                throw new SellException(ResultEnum.PRODUCT_NO_EXIST);
+            }
+            map.put("productInfo", productInfo);
         }
-        map.put("msg", ResultEnum.CANCEL_ORDER_SUCCESS.getMsg());
-        map.put("url", "/sell/seller/order/list");
-        return new ModelAndView("commons/success", map);
+        List<ProductCategory> categoryList = categoryService.findAll();
+        map.put("categoryList", categoryList);
+        return new ModelAndView("product/index", map);
+
     }
 
-    *//**
-     * 订单详情
-     * @param orderId
-     * @param map
-     * @return
-     *//*
-    @GetMapping("/detail")
-    public ModelAndView detail(@RequestParam("orderId") String orderId,
-                               Map<String, Object> map) {
-        OrderDTO orderDTO = new OrderDTO();
-        try {
-            orderDTO = orderService.findOne(orderId);
-        } catch (SellException e) {
-            log.error("[卖家端订单详情] {}", e.getMessage());
-            map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/order/list");
+    @PostMapping("/save")
+    public ModelAndView save(@Valid ProductForm productForm,
+                             BindingResult bindingResult,
+                             Map<String, Object> map) {
+        if ( bindingResult.hasErrors() ) {
+            map.put("msg", bindingResult.getFieldError().getDefaultMessage());
+            map.put("url", "/sell/seller/product/index");
             return new ModelAndView("commons/error", map);
         }
-        map.put("orderDTO", orderDTO);
-        return new ModelAndView("order/detail", map);
-    }
-
-    *//**
-     * 完结订单
-     * @param orderId
-     * @param map
-     * @return
-     *//*
-    @GetMapping("/finish")
-    public ModelAndView finish(@RequestParam("orderId") String orderId,
-                               Map<String, Object> map) {
         try {
-            OrderDTO one = orderService.findOne(orderId);
-            orderService.finish(one);
+            ProductInfo productInfo = new ProductInfo();
+            if ( !StringUtils.isEmpty(productForm.getProductId()) ) {
+                productInfo = productService.findOne(productForm.getProductId());
+            } else {
+                productForm.setProductId(KeyUtil.genUniqueKey());
+            }
+            BeanUtils.copyProperties(productForm, productInfo);
+            productService.save(productInfo);
         } catch (SellException e) {
-            log.error("[卖家端完结订单] {}", e.getMessage());
+            log.error("[卖家端保存商品] {}", e.getMessage());
             map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/order/list");
+            map.put("url", "/sell/seller/product/list");
             return new ModelAndView("commons/error", map);
         }
-        map.put("msg", ResultEnum.FINISH_ORDER_SUCCESS.getMsg());
-        map.put("url", "/sell/seller/order/list");
+        map.put("url", "/sell/seller/product/list");
         return new ModelAndView("commons/success", map);
+
     }
-*/
 }

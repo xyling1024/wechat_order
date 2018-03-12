@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -162,5 +163,10 @@ public class ProductServiceImpl implements ProductService {
         }
         productInfo.setProductStatus(ProductStatusEnum.DOWN.getStatus());
         return repository.save(productInfo);
+    }
+
+    @Override
+    public List<ProductInfo> findByCategorytype(Integer categoryType) {
+        return repository.findByCategoryType(categoryType);
     }
 }

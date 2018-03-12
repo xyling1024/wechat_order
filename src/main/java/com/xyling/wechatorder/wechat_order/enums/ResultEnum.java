@@ -48,6 +48,8 @@ public enum ResultEnum {
 
     OFFSALE_PRODUCT_SUCCESS(25, "商品下架成功"),
 
+    PRODUCT_CATEGORY_NO_EXIST(26, "商品类目不存在"),
+
     ;
 
     private Integer code;
