@@ -1,33 +1,30 @@
 <html>
-<header>
-    <meta charset="UTF-8" />
-    <title>商家订单列表</title>
-    <link href="https://cdn.bootcss.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="/sell/js/bootstrap-paginator.js"></script>
-</header>
-
+<#include "../commons/header.ftl">
 <body>
-    <div class="container">
-        <div class="row clearfix">
-            <div class="col-md-12 column">
-                <table class="table table-bordered table-hover">
-                    <thead>
-                    <tr>
-                        <th>订单id</th>
-                        <th>姓名</th>
-                        <th>手机号</th>
-                        <th>地址</th>
-                        <th>金额</th>
-                        <th>订单状态</th>
-                        <th>支付状态</th>
-                        <th>创建时间</th>
-                        <th colspan="2">操作</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        <#list orderDTOPage.getContent() as orderDTO >
+    <div id="wrapper" class="toggled">
+        <#--边栏 sidebar-->
+        <#include "../commons/nav.ftl">
+        <#--主要内容-->
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <table class="table table-bordered table-hover table-condensed">
+                            <thead>
+                            <tr>
+                                <th>订单id</th>
+                                <th>姓名</th>
+                                <th>手机号</th>
+                                <th>地址</th>
+                                <th>金额</th>
+                                <th>订单状态</th>
+                                <th>支付状态</th>
+                                <th>创建时间</th>
+                                <th colspan="2">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <#list orderDTOPage.getContent() as orderDTO >
                             <tr>
                                 <td>${orderDTO.orderId}</td>
                                 <td>${orderDTO.buyerName}</td>
@@ -40,45 +37,48 @@
                                 <td><a href="/sell/seller/order/detail?orderId=${orderDTO.orderId}">详情</a></td>
                                 <td>
                                     <#if orderDTO.getOrderStatusEnum().status == 0>
-                                        <a href="/sell/seller/order/cancel?orderId=${orderDTO.orderId}">取消</a></td>
+                                        <a href="/sell/seller/order/cancel?orderId=${orderDTO.orderId}">取消</a>
                                     </#if>
+                                </td>
                             </tr>
+                            </#list>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- 分页 -->
+                    <div class="col-md-6 pull-right">
+                        <ul id="pagintor"></ul>
+                    </div>
+
+                <#--<div class="col-md-12 column">
+                    <ul class="pagination pull-right">
+                        <!-- 上一页 &ndash;&gt;
+                        <#if currentPage lte 1>
+                            <li class="disabled"><a href="#">上一页</a></li>
+                        <#else >
+                            <li><a href="/sell/seller/order/list?page=${currentPage-1}&size=${size}">上一页</a></li>
+                        </#if>
+                        <!-- 遍历页码 &ndash;&gt;
+                        <#list 1..orderDTOPage.getTotalPages() as index>
+                            <#if currentPage == index>
+                                <li class="disabled"><a href="#">${index}</a></li>
+                            <#else >
+                                <li><a href="/sell/seller/order/list?page=${index}&size=${size}">${index}</a></li>
+                            </#if>
                         </#list>
-                    </tbody>
-                </table>
+                        <!-- 下一页 &ndash;&gt;
+                        <#if currentPage gte orderDTOPage.getTotalPages()>
+                            <li class="disabled"><a href="#">下一页</a></li>
+                        <#else >
+                            <li><a href="/sell/seller/order/list?page=${currentPage+1}&size=${size}">下一页</a></li>
+                        </#if>
+                    </ul>
+                </div>
+        -->
+
+                </div>
             </div>
-
-            <!-- 分页 -->
-            <div class="col-md-6 pull-right">
-                <ul id="pagintor"></ul>
-            </div>
-
-        <#--<div class="col-md-12 column">
-            <ul class="pagination pull-right">
-                <!-- 上一页 &ndash;&gt;
-                <#if currentPage lte 1>
-                    <li class="disabled"><a href="#">上一页</a></li>
-                <#else >
-                    <li><a href="/sell/seller/order/list?page=${currentPage-1}&size=${size}">上一页</a></li>
-                </#if>
-                <!-- 遍历页码 &ndash;&gt;
-                <#list 1..orderDTOPage.getTotalPages() as index>
-                    <#if currentPage == index>
-                        <li class="disabled"><a href="#">${index}</a></li>
-                    <#else >
-                        <li><a href="/sell/seller/order/list?page=${index}&size=${size}">${index}</a></li>
-                    </#if>
-                </#list>
-                <!-- 下一页 &ndash;&gt;
-                <#if currentPage gte orderDTOPage.getTotalPages()>
-                    <li class="disabled"><a href="#">下一页</a></li>
-                <#else >
-                    <li><a href="/sell/seller/order/list?page=${currentPage+1}&size=${size}">下一页</a></li>
-                </#if>
-            </ul>
-        </div>
--->
-
         </div>
     </div>
 </body>

@@ -1,6 +1,7 @@
 package com.xyling.wechatorder.wechat_order.domain;
 
 import com.xyling.wechatorder.wechat_order.enums.ProductStatusEnum;
+import com.xyling.wechatorder.wechat_order.utils.EnumUtils;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * Created by: xyling
@@ -36,6 +38,10 @@ public class ProductInfo {
 
     private Integer categoryType;
 
+    private Date createTime;
+
+    private Date updateTime;
+
     public ProductInfo(String productId, String productName, BigDecimal productPrice, Integer productStock, String productDesc, String productIcon, Integer productStatus, Integer categoryType) {
         this.productId = productId;
         this.productName = productName;
@@ -45,5 +51,9 @@ public class ProductInfo {
         this.productIcon = productIcon;
         this.productStatus = productStatus;
         this.categoryType = categoryType;
+    }
+
+    public ProductStatusEnum getProductStatusEnum() {
+        return EnumUtils.getEnumMsgByStatus(productStatus, ProductStatusEnum.class);
     }
 }
