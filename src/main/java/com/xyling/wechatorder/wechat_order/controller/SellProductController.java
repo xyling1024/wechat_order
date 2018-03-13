@@ -79,11 +79,11 @@ public class SellProductController {
         } catch (SellException e) {
             log.error("[卖家端商品上架] {}", e.getMessage());
             map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/product/list");
+            map.put("url", "/seller/product/list");
             return new ModelAndView("commons/error", map);
         }
         map.put("msg", ResultEnum.ONSALE_PRODUCT_SUCCESS.getMsg());
-        map.put("url", "/sell/seller/product/list");
+        map.put("url", "/seller/product/list");
         return new ModelAndView("commons/success", map);
     }
 
@@ -101,11 +101,11 @@ public class SellProductController {
         } catch (SellException e) {
             log.error("[卖家端商品下架] {}", e.getMessage());
             map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/product/list");
+            map.put("url", "/seller/product/list");
             return new ModelAndView("commons/error", map);
         }
         map.put("msg", ResultEnum.OFFSALE_PRODUCT_SUCCESS.getMsg());
-        map.put("url", "/sell/seller/product/list");
+        map.put("url", "/seller/product/list");
         return new ModelAndView("commons/success", map);
     }
 
@@ -138,7 +138,7 @@ public class SellProductController {
                              Map<String, Object> map) {
         if ( bindingResult.hasErrors() ) {
             map.put("msg", bindingResult.getFieldError().getDefaultMessage());
-            map.put("url", "/sell/seller/product/index");
+            map.put("url", "/seller/product/index");
             return new ModelAndView("commons/error", map);
         }
         try {
@@ -153,10 +153,10 @@ public class SellProductController {
         } catch (SellException e) {
             log.error("[卖家端保存商品] {}", e.getMessage());
             map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/product/list");
+            map.put("url", "/seller/product/list");
             return new ModelAndView("commons/error", map);
         }
-        map.put("url", "/sell/seller/product/list");
+        map.put("url", "/seller/product/list");
         return new ModelAndView("commons/success", map);
 
     }

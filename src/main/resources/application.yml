@@ -9,8 +9,8 @@ spring:
   # 忽略json转换对象中的null值属性
   jackson:
     default-property-inclusion: non_null
-server:
-  context-path: /sell
+#server:
+#  context-path: /sell
 
 wechat:
   myAppId: wxbed905c16599f7ec

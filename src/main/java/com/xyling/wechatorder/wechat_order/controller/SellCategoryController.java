@@ -89,7 +89,7 @@ public class SellCategoryController {
                              Map<String, Object> map) {
         if ( bindingResult.hasErrors() ) {
             map.put("msg", bindingResult.getFieldError().getDefaultMessage());
-            map.put("url", "/sell/seller/category/index");
+            map.put("url", "/seller/category/index");
             return new ModelAndView("commons/error", map);
         }
         try {
@@ -112,10 +112,10 @@ public class SellCategoryController {
         } catch (SellException e) {
             log.error("[卖家端保存商品类目] {}", e.getMessage());
             map.put("msg", e.getMessage());
-            map.put("url", "/sell/seller/category/list");
+            map.put("url", "/seller/category/list");
             return new ModelAndView("commons/error", map);
         }
-        map.put("url", "/sell/seller/category/list");
+        map.put("url", "/seller/category/list");
         return new ModelAndView("commons/success", map);
     }
 

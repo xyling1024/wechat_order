@@ -33,13 +33,13 @@ public class WeChatController {
     @Autowired
     private WxMpService wxMpService;
 
-    private String userInfoURL = "http://xyling.hk1.mofasuidao.cn/sell/wechat/userInfo";
+    private String userInfoURL = "http://fairy.nat300.top/wechat/userInfo";
 
     /**
      * 授权方法
      * 测试连接:
-     *      http://xyling.free.ngrok.cc/sell/wechat/authorize?returnUrl=http://xyling.free.ngrok.cc/sell/buyer/product/list
-     *      http://xyling.free.ngrok.cc/sell/wechat/authorize?returnUrl=http://xyling.free.ngrok.cc/sell/wechat/test
+     *      http://xyling.free.ngrok.cc/wechat/authorize?returnUrl=http://xyling.free.ngrok.cc/sell/buyer/product/list
+     *      http://xyling.free.ngrok.cc/wechat/authorize?returnUrl=http://xyling.free.ngrok.cc/sell/wechat/test
      * @param returnUrl
      * @return
      */
@@ -99,7 +99,5 @@ public class WeChatController {
         System.err.println("======================测试方法, openid = " + openid + "=======================");
         return "index";
     }
-
-
 
 }

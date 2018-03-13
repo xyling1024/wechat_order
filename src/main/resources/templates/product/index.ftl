@@ -9,7 +9,7 @@
         <div id="page-content-wrapper">
             <div class="container-fluid">
                 <div class="col-md-12 column">
-                    <form role="form" action="/sell/seller/product/save" method="post">
+                    <form role="form" action="/seller/product/save" method="post">
                         <div class="form-group">
                             <label for="productName">名称</label>
                             <input type="text" class="form-control" name="productName" value="${(productInfo.productName)!""}" />

@@ -34,10 +34,10 @@
                                 <td>${orderDTO.getOrderStatusEnum().message}</td>
                                 <td>${orderDTO.getPayStatusEnum().message}</td>
                                 <td>${orderDTO.createTime}</td>
-                                <td><a href="/sell/seller/order/detail?orderId=${orderDTO.orderId}">详情</a></td>
+                                <td><a href="/seller/order/detail?orderId=${orderDTO.orderId}">详情</a></td>
                                 <td>
                                     <#if orderDTO.getOrderStatusEnum().status == 0>
-                                        <a href="/sell/seller/order/cancel?orderId=${orderDTO.orderId}">取消</a>
+                                        <a href="/seller/order/cancel?orderId=${orderDTO.orderId}">取消</a>
                                     </#if>
                                 </td>
                             </tr>
@@ -57,21 +57,21 @@
                         <#if currentPage lte 1>
                             <li class="disabled"><a href="#">上一页</a></li>
                         <#else >
-                            <li><a href="/sell/seller/order/list?page=${currentPage-1}&size=${size}">上一页</a></li>
+                            <li><a href="/seller/order/list?page=${currentPage-1}&size=${size}">上一页</a></li>
                         </#if>
                         <!-- 遍历页码 &ndash;&gt;
                         <#list 1..orderDTOPage.getTotalPages() as index>
                             <#if currentPage == index>
                                 <li class="disabled"><a href="#">${index}</a></li>
                             <#else >
-                                <li><a href="/sell/seller/order/list?page=${index}&size=${size}">${index}</a></li>
+                                <li><a href="/seller/order/list?page=${index}&size=${size}">${index}</a></li>
                             </#if>
                         </#list>
                         <!-- 下一页 &ndash;&gt;
                         <#if currentPage gte orderDTOPage.getTotalPages()>
                             <li class="disabled"><a href="#">下一页</a></li>
                         <#else >
-                            <li><a href="/sell/seller/order/list?page=${currentPage+1}&size=${size}">下一页</a></li>
+                            <li><a href="/seller/order/list?page=${currentPage+1}&size=${size}">下一页</a></li>
                         </#if>
                     </ul>
                 </div>
@@ -109,7 +109,7 @@
             },
             //点击事件
             onPageClicked: function (event, originalEvent, type, page) {
-                location.href = "/sell/seller/order/list?size=${size}&page=" + page;
+                location.href = "/seller/order/list?size=${size}&page=" + page;
             }
         };
         $('#pagintor').bootstrapPaginator(options);

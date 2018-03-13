@@ -38,12 +38,12 @@
                                 <td>${productInfo.categoryType}</td>
                                 <td>${productInfo.createTime}</td>
                                 <td>${productInfo.updateTime}</td>
-                                <td><a href="/sell/seller/product/index?productId=${productInfo.productId}">修改</a></td>
+                                <td><a href="/seller/product/index?productId=${productInfo.productId}">修改</a></td>
                                 <td>
                                     <#if productInfo.getProductStatusEnum().status == 0>
-                                        <a href="/sell/seller/product/off_sale?productId=${productInfo.productId}">下架</a>
+                                        <a href="/seller/product/off_sale?productId=${productInfo.productId}">下架</a>
                                     <#else >
-                                        <a href="/sell/seller/product/on_sale?productId=${productInfo.productId}">上架</a>
+                                        <a href="/seller/product/on_sale?productId=${productInfo.productId}">上架</a>
                                     </#if>
                                 </td>
                             </tr>
@@ -89,7 +89,7 @@
             },
             //点击事件
             onPageClicked: function (event, originalEvent, type, page) {
-                location.href = "/sell/seller/product/list?size=${size}&page=" + page;
+                location.href = "/seller/product/list?size=${size}&page=" + page;
             }
         };
         $('#pagintor').bootstrapPaginator(options);

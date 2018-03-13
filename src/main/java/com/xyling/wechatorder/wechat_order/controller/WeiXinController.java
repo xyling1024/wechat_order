@@ -27,7 +27,7 @@ public class WeiXinController {
 
     /**
      * 1. 引导用户在微信内访问URL地址:
-     *      https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=http://xyling.free.ngrok.cc/sell/weixin/auth&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+     *      https://open.weixin.qq.com/connect/oauth2/authorize?appid=APPID&redirect_uri=http://xyling.free.ngrok.cc/weixin/auth&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
      *  其中:     appid   公众号appid
      *            redirect_uri  用户确认授权后跳转的地址
      *            response_type  返回类型, 固定填写为code
