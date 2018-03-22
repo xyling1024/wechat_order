@@ -1,5 +1,6 @@
 package com.xyling.wechatorder.wechat_order.service.impl;
 
+import com.lly835.bestpay.model.RefundResponse;
 import com.xyling.wechatorder.wechat_order.DTO.CartDTO;
 import com.xyling.wechatorder.wechat_order.DTO.OrderDTO;
 import com.xyling.wechatorder.wechat_order.converter.OrderMaster2OrderDTOConverter;
@@ -13,6 +14,7 @@ import com.xyling.wechatorder.wechat_order.exception.SellException;
 import com.xyling.wechatorder.wechat_order.repository.OrderDetailRepository;
 import com.xyling.wechatorder.wechat_order.repository.OrderMasterRepository;
 import com.xyling.wechatorder.wechat_order.service.OrderService;
+import com.xyling.wechatorder.wechat_order.service.PayService;
 import com.xyling.wechatorder.wechat_order.service.ProductService;
 import com.xyling.wechatorder.wechat_order.utils.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +50,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderDetailRepository orderDetailRepository;
+
+    @Autowired
+    private PayService payService;
 
     @Override
     public OrderDTO create(OrderDTO orderDTO) {
@@ -165,7 +170,7 @@ public class OrderServiceImpl implements OrderService {
         productService.increaseStock(cartDTOList);
         // 若已付款, 退款
         if ( orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS.getStatus()) ) {
-            // TODO
+            RefundResponse refund = payService.refund(orderDTO);
         }
         return orderDTO;
     }

@@ -2,7 +2,7 @@ package com.xyling.wechatorder.wechat_order.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xyling.wechatorder.wechat_order.enums.ProductStatusEnum;
-import com.xyling.wechatorder.wechat_order.utils.EnumUtils;
+import com.xyling.wechatorder.wechat_order.utils.EnumUtil;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.DynamicUpdate;
@@ -56,7 +56,7 @@ public class ProductInfo {
 
     @JsonIgnore
     public ProductStatusEnum getProductStatusEnum() {
-        return EnumUtils.getEnumMsgByStatus(productStatus, ProductStatusEnum.class);
+        return EnumUtil.getEnumMsgByStatus(productStatus, ProductStatusEnum.class);
     }
 
 }

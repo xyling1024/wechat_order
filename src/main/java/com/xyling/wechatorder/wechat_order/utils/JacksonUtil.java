@@ -12,7 +12,7 @@ import java.io.IOException;
  * 2018-03-05 13:00
  */
 @Slf4j
-public class JacksonUtils {
+public class JacksonUtil {
 
     private static ObjectMapper mapper = new ObjectMapper();
 

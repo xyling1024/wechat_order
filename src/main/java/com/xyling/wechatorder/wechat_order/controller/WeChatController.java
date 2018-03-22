@@ -28,9 +28,6 @@ import java.net.URLEncoder;
 public class WeChatController {
 
     @Autowired
-    private WeChatAccountConfig weChatMPConfig;
-
-    @Autowired
     private WxMpService wxMpService;
 
     private String userInfoURL = "http://fairy.nat300.top/wechat/userInfo";

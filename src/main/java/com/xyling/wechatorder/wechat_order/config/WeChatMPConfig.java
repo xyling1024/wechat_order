@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
  * Created by: xyling
  * 2018-03-08 12:47
  */
-
 @Component
 public class WeChatMPConfig {
 
@@ -30,8 +29,8 @@ public class WeChatMPConfig {
     @Bean
     public WxMpConfigStorage wxMpConfigStorage() {
         WxMpInMemoryConfigStorage wxMpConfigStorage = new WxMpInMemoryConfigStorage();
-        wxMpConfigStorage.setAppId(weChatAccountConfig.getMyAppId());
-        wxMpConfigStorage.setSecret(weChatAccountConfig.getMyAppSecret());
+        wxMpConfigStorage.setAppId(weChatAccountConfig.getMpAppId());
+        wxMpConfigStorage.setSecret(weChatAccountConfig.getMpAppSecret());
         return wxMpConfigStorage;
     }
 }

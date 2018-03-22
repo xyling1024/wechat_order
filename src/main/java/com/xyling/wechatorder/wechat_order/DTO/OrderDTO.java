@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.xyling.wechatorder.wechat_order.domain.OrderDetail;
 import com.xyling.wechatorder.wechat_order.enums.OrderStatusEnum;
 import com.xyling.wechatorder.wechat_order.enums.PayStatusEnum;
-import com.xyling.wechatorder.wechat_order.utils.EnumUtils;
+import com.xyling.wechatorder.wechat_order.utils.EnumUtil;
 import com.xyling.wechatorder.wechat_order.utils.serializer.Date2LongSerializer;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -55,11 +55,11 @@ public class OrderDTO {
 
     @JsonIgnore
     public OrderStatusEnum getOrderStatusEnum() {
-        return EnumUtils.getEnumMsgByStatus(orderStatus, OrderStatusEnum.class);
+        return EnumUtil.getEnumMsgByStatus(orderStatus, OrderStatusEnum.class);
     }
 
     @JsonIgnore
     public PayStatusEnum getPayStatusEnum() {
-        return EnumUtils.getEnumMsgByStatus(payStatus, PayStatusEnum.class);
+        return EnumUtil.getEnumMsgByStatus(payStatus, PayStatusEnum.class);
     }
 }

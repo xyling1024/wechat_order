@@ -50,6 +50,8 @@ public enum ResultEnum {
 
     PRODUCT_CATEGORY_NO_EXIST(26, "商品类目不存在"),
 
+    WXPAY_NOTIFY_VERIFY_ERROR(26, "微信异步通知金额校验错误"),
+
     ;
 
     private Integer code;

@@ -1,11 +1,10 @@
 package com.xyling.wechatorder.wechat_order.controller;
 
 import com.xyling.wechatorder.wechat_order.config.WeChatAccountConfig;
-import com.xyling.wechatorder.wechat_order.utils.JacksonUtils;
+import com.xyling.wechatorder.wechat_order.utils.JacksonUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.UnsupportedEncodingException;
@@ -48,11 +47,11 @@ public class WeiXinController {
     @RequestMapping("/auth")
     public void auth(String code, String state) {
         log.info("进入auth方法, code = {}, state = {}", code, state);
-        String getAccessTokenURL = WEIXIN_URL_BASE + "oauth2/access_token?appid=" + weChatMPConfig.getMyAppId() + "&secret=" + weChatMPConfig.getMyAppSecret() + "&code=" + code + "&grant_type=authorization_code";
+        String getAccessTokenURL = WEIXIN_URL_BASE + "oauth2/access_token?appid=" + weChatMPConfig.getMpAppId() + "&secret=" + weChatMPConfig.getMpAppSecret() + "&code=" + code + "&grant_type=authorization_code";
         RestTemplate restTemplate = new RestTemplate();
         String responseStr = restTemplate.getForObject(getAccessTokenURL, String.class);
         log.info("responseStr = {}", responseStr);
-        Map<String, String> response = JacksonUtils.json2Object(responseStr, Map.class);
+        Map<String, String> response = JacksonUtil.json2Object(responseStr, Map.class);
 
         Map userInfo = userInfo(response.get("access_token"), response.get("openid"));
 
@@ -91,7 +90,7 @@ public class WeiXinController {
             }
             log.info("userInfoStr = {}", userInfoStr);
 
-            return JacksonUtils.json2Object(userInfoStr, Map.class);
+            return JacksonUtil.json2Object(userInfoStr, Map.class);
         }
         return null;
     }
@@ -107,7 +106,7 @@ public class WeiXinController {
      */
     private boolean isValidAccessToken(String access_token, String openid) {
         String url = WEIXIN_URL_BASE + "auth?access_token=" + access_token + "&openid=" + openid;
-        Map<String, String> map = JacksonUtils.json2Object(new RestTemplate().getForObject(url, String.class), Map.class);
+        Map<String, String> map = JacksonUtil.json2Object(new RestTemplate().getForObject(url, String.class), Map.class);
         if ( ("0").equalsIgnoreCase(map.get("errcode")) ) {
             return true;
         } else {

@@ -9,9 +9,19 @@ spring:
   # 忽略json转换对象中的null值属性
   jackson:
     default-property-inclusion: non_null
+
 #server:
 #  context-path: /sell
 
+# 微信授权 - 测试公众账号
+#wechat:
+#  mpAppId: wxbed905c16599f7ec
+#  mpAppSecret: 3e8ac32d2c9ed134d929c23fa70393e6
+
+# 微信支付
 wechat:
-  myAppId: wxbed905c16599f7ec
-  myAppSecret: 3e8ac32d2c9ed134d929c23fa70393e6
+  mpAppId: wxd898fcb01713c658
+  mchId: 1483469312
+  mchKey: C5245D70627C1F8E9964D494B0735025
+  keyPath: D:\develop\workspace\ws_idea_2017\wechat_order\h5.p12
+  notifyUrl: http://fairy.nat300.top/notify

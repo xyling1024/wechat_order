@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * Created by: xyling
  * 2018-03-11 9:48
  */
-public class EnumUtils<T> {
+public class EnumUtil<T> {
 
     public static <T extends StatusEnum<Integer>> T getEnumMsgByStatus(Integer status, Class<T> enumClass) {
        /* for (T each : enumClass.getEnumConstants()) {

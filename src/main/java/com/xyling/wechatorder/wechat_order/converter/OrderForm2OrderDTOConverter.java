@@ -5,7 +5,6 @@ import com.google.gson.reflect.TypeToken;
 import com.xyling.wechatorder.wechat_order.DTO.OrderDTO;
 import com.xyling.wechatorder.wechat_order.domain.OrderDetail;
 import com.xyling.wechatorder.wechat_order.form.OrderForm;
-import com.xyling.wechatorder.wechat_order.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -24,7 +23,7 @@ public class OrderForm2OrderDTOConverter {
         orderDTO.setBuyerAddress(orderForm.getAddress());
         orderDTO.setBuyerOpenid(orderForm.getOpenid());
 
-//        List<OrderDetail> orderDetailList = JacksonUtils.json2Object(orderForm.getItems(), List.class, OrderDetail.class);
+//        List<OrderDetail> orderDetailList = JacksonUtil.json2Object(orderForm.getItems(), List.class, OrderDetail.class);
         List<OrderDetail> orderDetailList = new Gson().fromJson(orderForm.getItems(), new TypeToken<List<OrderDetail>>(){}.getType());
         orderDTO.setOrderDetailList(orderDetailList);
 
